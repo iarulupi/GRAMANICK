@@ -41,6 +41,15 @@ const vocabularioPersonas = {
 
     "mamá": "https://static.arasaac.org/pictograms/2458/2458_300.png",
     "papá": "https://static.arasaac.org/pictograms/31146/31146_300.png",
+    "mamás": "https://static.arasaac.org/pictograms/2458/2458_300.png",
+    "papás": "https://static.arasaac.org/pictograms/31146/31146_300.png",
+    "madres": "https://static.arasaac.org/pictograms/2458/2458_300.png",
+    "padres": "https://static.arasaac.org/pictograms/31146/31146_300.png",
+    "madre": "https://static.arasaac.org/pictograms/2458/2458_300.png",
+    "padre": "https://static.arasaac.org/pictograms/31146/31146_300.png",
+
+
+
 
     "hermano": "https://static.arasaac.org/pictograms/2423/2423_300.png",
     "hermana": "https://static.arasaac.org/pictograms/2422/2422_300.png",
