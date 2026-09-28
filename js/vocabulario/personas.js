@@ -50,6 +50,9 @@ const vocabularioPersonas = {
 
     "abuelo": "https://static.arasaac.org/pictograms/23718/23718_300.png",
     "abuela": "https://static.arasaac.org/pictograms/23710/23710_300.png",
+    "abuelos": "https://static.arasaac.org/pictograms/23718/23718_300.png",
+    "abuelas": "https://static.arasaac.org/pictograms/23710/23710_300.png",
+
 
     "familia": [
         "https://static.arasaac.org/pictograms/2392/2392_300.png",
