@@ -44,6 +44,9 @@ const vocabularioPersonas = {
 
     "hermano": "https://static.arasaac.org/pictograms/2423/2423_300.png",
     "hermana": "https://static.arasaac.org/pictograms/2422/2422_300.png",
+    "hermanos": "https://static.arasaac.org/pictograms/2423/2423_300.png",
+    "hermanas": "https://static.arasaac.org/pictograms/2422/2422_300.png",
+
 
     "abuelo": "https://static.arasaac.org/pictograms/23718/23718_300.png",
     "abuela": "https://static.arasaac.org/pictograms/23710/23710_300.png",
