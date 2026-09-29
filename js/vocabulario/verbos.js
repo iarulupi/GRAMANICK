@@ -11,6 +11,23 @@ const vocabularioVerbos = {
         "https://static.arasaac.org/pictograms/32298/32298_300.png"
     ],
 
+    "repasar": [
+        "https://static.arasaac.org/pictograms/34607/34607_300.png",
+        "https://static.arasaac.org/pictograms/15475/15475_300.png",
+        "https://static.arasaac.org/pictograms/39182/39182_300.png",
+        "https://static.arasaac.org/pictograms/39828/39828_300.png",
+ ],
+        
+    "burlar": "https://static.arasaac.org/pictograms/39759/39759_300.png",
+
+    "tirar": [
+        "https://static.arasaac.org/pictograms/36673/36673_300.png",
+        "https://static.arasaac.org/pictograms/30658/30658_300.png",
+        "https://static.arasaac.org/pictograms/36381/36381_300.png",
+],
+
+    "empujar": "https://static.arasaac.org/pictograms/16655/16655_300.png",
+    
     "saltar": "https://static.arasaac.org/pictograms/39052/39052_300.png",
 
     "regar": "https://static.arasaac.org/pictograms/2816/2816_300.png",
@@ -418,6 +435,10 @@ let verbosBase = [
     "querer",
     "formar",
     "correr",
+    "tirar",
+    "burlar",
+    "empujar",
+    "burlarse",
     "traer",
     "trozar",
     "tachar",
@@ -1861,7 +1882,76 @@ let verbosConjugados = {
 "vamos a unir": "unir",
 "van a unir": "unir",
 
+// ===== TIRAR =====
 
+// PRESENTE HABITUAL
+"tiro": "tirar",
+"tiras": "tirar",
+"tira": "tirar",
+"tiramos": "tirar",
+"tiran": "tirar",
+
+// PRETÉRITO PERFECTO SIMPLE
+"tiré": "tirar",
+"tiraste": "tirar",
+"tiró": "tirar",
+"tiramos": "tirar",
+"tiraron": "tirar",
+
+// FUTURO PRÓXIMO O PERIFRÁSTICO
+"voy a tirar": "tirar",
+"vas a tirar": "tirar",
+"va a tirar": "tirar",
+"vamos a tirar": "tirar",
+"van a tirar": "tirar",
+
+
+// ===== BURLAR =====
+
+// PRESENTE HABITUAL
+"burlo": "burlar",
+"burlas": "burlar",
+"burla": "burlar",
+"burlamos": "burlar",
+"burlan": "burlar",
+
+// PRETÉRITO PERFECTO SIMPLE
+"burlé": "burlar",
+"burlaste": "burlar",
+"burló": "burlar",
+"burlamos": "burlar",
+"burlaron": "burlar",
+
+// FUTURO PRÓXIMO O PERIFRÁSTICO
+"voy a burlarme": "burlar",
+"vas a burlarte": "burlar",
+"va a burlarse": "burlar",
+"vamos a burlarnos": "burlar",
+"van a burlarse": "burlar",
+
+// ===== TIRAR =====
+
+// PRESENTE HABITUAL
+"tiro": "tirar",
+"tiras": "tirar",
+"tira": "tirar",
+"tiramos": "tirar",
+"tiran": "tirar",
+
+// PRETÉRITO PERFECTO SIMPLE
+"tiré": "tirar",
+"tiraste": "tirar",
+"tiró": "tirar",
+"tiramos": "tirar",
+"tiraron": "tirar",
+
+// FUTURO PRÓXIMO O PERIFRÁSTICO
+"voy a tirar": "tirar",
+"vas a tirar": "tirar",
+"va a tirar": "tirar",
+"vamos a tirar": "tirar",
+"van a tirar": "tirar",
+    
 // == meterse ==
 
 // PRESENTE HABITUAL
@@ -2435,6 +2525,28 @@ let verbosConjugados = {
 "vamos a leer": "leer",
 "van a leer": "leer",
 
+// ===== EMPUJAR =====
+
+// PRESENTE HABITUAL
+"empujo": "empujar",
+"empujas": "empujar",
+"empuja": "empujar",
+"empujamos": "empujar",
+"empujan": "empujar",
+
+// PRETÉRITO PERFECTO SIMPLE
+"empujé": "empujar",
+"empujaste": "empujar",
+"empujó": "empujar",
+"empujamos": "empujar",
+"empujaron": "empujar",
+
+// FUTURO PRÓXIMO O PERIFRÁSTICO
+"voy a empujar": "empujar",
+"vas a empujar": "empujar",
+"va a empujar": "empujar",
+"vamos a empujar": "empujar",
+"van a empujar": "empujar",
 
 // ===== FESTEJAR =====
 
