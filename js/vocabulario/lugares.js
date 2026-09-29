@@ -82,6 +82,7 @@ const vocabularioLugares = {
        "https://static.arasaac.org/pictograms/6523/6523_300.png",
        "https://static.arasaac.org/pictograms/3116/3116_300.png",
        ],
+   "calle": "https://static.arasaac.org/pictograms/2299/2299_300.png",
    "campo": "https://static.arasaac.org/pictograms/2683/2683_300.png",
    "ciudad": "https://static.arasaac.org/pictograms/2704/2704_300.png",
    "club": "https://static.arasaac.org/pictograms/37951/37951_300.png",
