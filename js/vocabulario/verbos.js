@@ -11,6 +11,14 @@ const vocabularioVerbos = {
         "https://static.arasaac.org/pictograms/32298/32298_300.png"
     ],
 
+    "pelar": [
+        "https://static.arasaac.org/pictograms/5537/5537_300.png",
+        "https://static.arasaac.org/pictograms/38982/38982_300.png",
+        "https://static.arasaac.org/pictograms/36944/36944_300.png",
+        "https://static.arasaac.org/pictograms/38983/38983_300.png",
+        "https://static.arasaac.org/pictograms/39631/39631_300.png",
+ ],
+    
     "repasar": [
         "https://static.arasaac.org/pictograms/34607/34607_300.png",
         "https://static.arasaac.org/pictograms/15475/15475_300.png",
@@ -509,6 +517,7 @@ let verbosBase = [
     "sorprender",
     "crear",
     "vivir",
+    "pelar",
     "dibujar",
 ];
 
@@ -921,6 +930,29 @@ let verbosConjugados = {
 "va a hablar": "hablar",
 "vamos a hablar": "hablar",
 "van a hablar": "hablar",
+
+    // ===== PELAR =====
+
+// PRESENTE HABITUAL
+"pelo": "pelar",
+"pelas": "pelar",
+"pela": "pelar",
+"pelamos": "pelar",
+"pelan": "pelar",
+
+// PRETÉRITO PERFECTO SIMPLE
+"pelé": "pelar",
+"pelaste": "pelar",
+"peló": "pelar",
+"pelamos": "pelar",
+"pelaron": "pelar",
+
+// FUTURO PRÓXIMO O PERIFRÁSTICO
+"voy a pelar": "pelar",
+"vas a pelar": "pelar",
+"va a pelar": "pelar",
+"vamos a pelar": "pelar",
+"van a pelar": "pelar",
     
 // == decir ==
 
