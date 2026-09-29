@@ -13,6 +13,8 @@ const vocabularioVerbos = {
 
     "saltar": "https://static.arasaac.org/pictograms/39052/39052_300.png",
 
+    "regar": "https://static.arasaac.org/pictograms/2816/2816_300.png",
+
     "correr": "https://static.arasaac.org/pictograms/6465/6465_300.png",
 
     "desfilar": [
@@ -368,6 +370,7 @@ let verbosBase = [
     "recordar",
     "romper",
     "faltar",
+    "regar",
     "prender",
     "copiar",
     "contestar",
@@ -1664,7 +1667,29 @@ let verbosConjugados = {
 "vamos a hacer un gol": "hacer un gol",
 "van a hacer un gol": "hacer un gol",
 
+// ===== REGAR =====
 
+// PRESENTE HABITUAL
+"riego": "regar",
+"riegas": "regar",
+"riega": "regar",
+"regamos": "regar",
+"riegan": "regar",
+
+// PRETÉRITO PERFECTO SIMPLE
+"regué": "regar",
+"regaste": "regar",
+"regó": "regar",
+"regamos": "regar",
+"regaron": "regar",
+
+// FUTURO PRÓXIMO O PERIFRÁSTICO
+"voy a regar": "regar",
+"vas a regar": "regar",
+"va a regar": "regar",
+"vamos a regar": "regar",
+"van a regar": "regar",
+    
 // == vestir ==
 
 // PRESENTE HABITUAL
