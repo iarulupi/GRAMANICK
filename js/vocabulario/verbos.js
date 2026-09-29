@@ -203,8 +203,10 @@ const vocabularioVerbos = {
 
     "dormir": "https://static.arasaac.org/pictograms/6479/6479_300.png",
 
-    "pegar": "https://static.arasaac.org/pictograms/2511/2511_300.png",
-
+    "pegar": [
+     "https://static.arasaac.org/pictograms/2511/2511_300.png",
+    "https://static.arasaac.org/pictograms/9000/9000_300.png",
+],
     "subrayar": "https://static.arasaac.org/pictograms/6219/6219_300.png",
 
     "unir": "https://static.arasaac.org/pictograms/8243/8243_300.png",
