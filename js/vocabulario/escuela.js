@@ -37,6 +37,7 @@ const vocabularioEscuela = {
     "palabra": "https://i.ibb.co/fVkvCxqB/palabra.jpg",
     "palabras": "https://i.ibb.co/fVkvCxqB/palabra.jpg",
     "párrafo": "https://i.ibb.co/FbZ1SH5C/parrafo.jpg",
+    "sílaba": "https://i.ibb.co/Xk52dkH7/Imagen-de-Chat-GPT-29-sept-2026-02-31-09-p-m.png",
 
     "verbo": "https://static.arasaac.org/pictograms/32604/32604_300.png",
 
