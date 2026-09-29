@@ -390,6 +390,7 @@ let verbosBase = [
     "necesitar",
     "pensar",
     "llamarse",
+    "lastimar",
     "comer",
     "llevar",
     "encerrar",
@@ -1270,6 +1271,29 @@ let verbosConjugados = {
 "va a ganar": "ganar",
 "vamos a ganar": "ganar",
 "van a ganar": "ganar",
+
+// ===== LASTIMAR =====
+
+// PRESENTE HABITUAL
+"lastimo": "lastimar",
+"lastimas": "lastimar",
+"lastima": "lastimar",
+"lastimamos": "lastimar",
+"lastiman": "lastimar",
+
+// PRETÉRITO PERFECTO SIMPLE
+"lastimé": "lastimar",
+"lastimaste": "lastimar",
+"lastimó": "lastimar",
+"lastimamos": "lastimar",
+"lastimaron": "lastimar",
+
+// FUTURO PRÓXIMO O PERIFRÁSTICO
+"voy a lastimar": "lastimar",
+"vas a lastimar": "lastimar",
+"va a lastimar": "lastimar",
+"vamos a lastimar": "lastimar",
+"van a lastimar": "lastimar",
 
 
 // ==================== VERBO PERDER ====================
