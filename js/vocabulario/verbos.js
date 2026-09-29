@@ -18,6 +18,8 @@ const vocabularioVerbos = {
         "https://static.arasaac.org/pictograms/38983/38983_300.png",
         "https://static.arasaac.org/pictograms/39631/39631_300.png",
  ],
+
+    "plantar": "https://static.arasaac.org/pictograms/2828/2828_300.png",
     
     "repasar": [
         "https://static.arasaac.org/pictograms/34607/34607_300.png",
@@ -274,6 +276,8 @@ const vocabularioVerbos = {
 
     "lastimarse": "https://i.ibb.co/4RQ30C5n/Whats-App-Image-2026-02-28-at-11-20-42-PM.jpg",
 
+    "lastimar": "https://i.ibb.co/4RQ30C5n/Whats-App-Image-2026-02-28-at-11-20-42-PM.jpg",
+
     "doler": "https://static.arasaac.org/pictograms/30620/30620_300.png",
 
     "regalar": "https://static.arasaac.org/pictograms/16881/16881_300.png",
@@ -447,6 +451,7 @@ let verbosBase = [
     "formar",
     "correr",
     "tirar",
+    "plantar",
     "burlar",
     "empujar",
     "burlarse",
@@ -1893,6 +1898,29 @@ let verbosConjugados = {
 "va a viajar": "viajar",
 "vamos a viajar": "viajar",
 "van a viajar": "viajar",
+
+// ===== PLANTAR =====
+
+// PRESENTE HABITUAL
+"planto": "plantar",
+"plantas": "plantar",
+"planta": "plantar",
+"plantamos": "plantar",
+"plantan": "plantar",
+
+// PRETÉRITO PERFECTO SIMPLE
+"planté": "plantar",
+"plantaste": "plantar",
+"plantó": "plantar",
+"plantamos": "plantar",
+"plantaron": "plantar",
+
+// FUTURO PRÓXIMO O PERIFRÁSTICO
+"voy a plantar": "plantar",
+"vas a plantar": "plantar",
+"va a plantar": "plantar",
+"vamos a plantar": "plantar",
+"van a plantar": "plantar",
 
 
 // == escribir ==
