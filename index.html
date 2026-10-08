@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head> 
+<meta charset="UTF-8"> 
+<title>Gramanick ®</title> 
+ 
+ <link rel="icon" type="image/png" href="favicon.png">
+ 
+<!-- FUENTES -->
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- CSS -->
+<link rel="stylesheet" href="css/estilos.css?v=5.7-seleccion">  
+
+<!-- HTML2CANVAS -->
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<!-- JAVASCRIPT BASE -->
+<script src="js/simbolos.js"></script>
+
+<!-- VOCABULARIO -->
+<script src="js/vocabulario/verbos.js"></script>
+<script src="js/motor-verbal.js?v=5.8-reflexivos"></script>
+<script src="js/verbos-irregulares.js?v=4"></script>
+<script src="js/vocabulario/adjetivos.js"></script>
+<script src="js/motor-adjetivos.js?v=5.10"></script>
+<script src="js/vocabulario/pronombres.js"></script>
+<script src="js/vocabulario/relacionantes.js"></script>
+<script src="js/vocabulario/preposiciones.js"></script>
+<script src="js/vocabulario/reflexivos.js"></script>
+<script src="js/vocabulario/animales.js"></script>
+<script src="js/vocabulario/bebidas.js"></script>
+<script src="js/vocabulario/calendario.js"></script>
+<script src="js/vocabulario/clima.js"></script>
+<script src="js/vocabulario/colores.js"></script>
+<script src="js/vocabulario/comidas.js"></script>
+<script src="js/vocabulario/deportes.js"></script>
+<script src="js/vocabulario/electronica.js"></script>
+<script src="js/vocabulario/encabezadores.js"></script>
+<script src="js/vocabulario/escuela.js"></script>
+<script src="js/vocabulario/juegos.js"></script>
+<script src="js/vocabulario/juguetes.js"></script>
+<script src="js/vocabulario/lugares.js"></script>
+<script src="js/vocabulario/negocios.js"></script>
+<script src="js/vocabulario/otros.js"></script>
+<script src="js/vocabulario/personas.js"></script>
+<script src="js/vocabulario/ropa.js"></script>
+<script src="js/vocabulario/transportes.js"></script>
+
+<!-- FUNCIONES DEL PROGRAMA -->
+<script src="js/funciones.js?v=5.10.1"></script>
+</head>
+
+<body>
+
+  <!-- Título con logo -->
+ <h1 class="titulo">
+    GramaNick <span class="logo-emoji">📖✏️</span>
+</h1>
+
+  <!-- Área de texto y botones -->
+  <div class="editor-texto-wrap">
+    <textarea id="texto" placeholder="Un cafecito y a seguir ♡..."></textarea>
+    <div class="herramientas-texto">
+      <button type="button" class="btn-insertar-renglon" title="Insertar renglón" aria-label="Insertar renglón" onclick="insertarRenglonEnTexto()">Insertar renglón</button>
+      <button type="button" class="btn-agregar-foto" title="Agregar foto" aria-label="Agregar foto" onclick="abrirSelectorFoto()">Agregar foto</button>
+      <input id="inputFotoActividad" type="file" accept="image/*" hidden onchange="cargarFotoActividad(event)">
+    </div>
+  </div>
+
+  <!-- V5.14 EXPERIMENTAL — foto adjunta a la actividad -->
+  <div id="previewFotoActividad" class="preview-foto-actividad" hidden></div>
+
+  <div class="panel-controles">
+
+    <!-- FILA 1: CREAR -->
+    <div class="accion-crear">
+      <button class="btn-crear-principal" onclick="crearNuevoResultado()">✨ Crear ✨</button>
+    </div>
+
+    <!-- FILA 2: FORMATO -->
+    <div class="acciones-formato">
+      <button onmousedown="event.preventDefault()" onclick="subrayarSeleccion()">Subrayar</button>
+      <button id="btnNegrita" onmousedown="event.preventDefault()" onclick="toggleNegritaSeleccion()" title="Negrita" aria-label="Negrita">Negrita</button>
+      <details class="selector-alineacion">
+        <summary onmousedown="event.preventDefault()" title="Alineación" aria-label="Alineación">Alineación</summary>
+        <div class="menu-alineacion">
+          <button title="Izquierda" aria-label="Izquierda" onmousedown="event.preventDefault()" onclick="alinearSeleccion('flex-start'); this.closest('details').removeAttribute('open');"><span class="icono-alinear icono-alinear-izquierda"><i></i><i></i><i></i><i></i></span><span>Izquierda</span></button>
+          <button title="Centro" aria-label="Centro" onmousedown="event.preventDefault()" onclick="alinearSeleccion('center'); this.closest('details').removeAttribute('open');"><span class="icono-alinear icono-alinear-centro"><i></i><i></i><i></i><i></i></span><span>Centro</span></button>
+          <button title="Derecha" aria-label="Derecha" onmousedown="event.preventDefault()" onclick="alinearSeleccion('flex-end'); this.closest('details').removeAttribute('open');"><span class="icono-alinear icono-alinear-derecha"><i></i><i></i><i></i><i></i></span><span>Derecha</span></button>
+        </div>
+      </details>
+      <div class="selector-tipografia selector-tipografia-compacto">
+        <select id="tipografia" onchange="cambiarTipografia()" title="Tipografía" aria-label="Tipografía">
+          <option value="'Patrick Hand', cursive">Patrick Hand</option>
+          <option value="'Nunito', sans-serif">Nunito</option>
+          <option value="'Comic Neue', cursive">Comic Neue</option>
+          <option value="Arial, sans-serif">Arial</option>
+          <option value="'Dreaming Outloud Pro', cursive" selected>Dreaming Outloud Pro</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- FILA 3: EDICIÓN POR SELECCIÓN -->
+    <div class="acciones-edicion acciones-seleccion">
+      <button id="btnSeleccionMultiple" class="boton-off btn-seleccion-principal" onclick="toggleSeleccionMultiple()">Selección OFF</button>
+      <button id="btnAgregarPicto" onmousedown="event.preventDefault()" onclick="abrirBuscadorPictoManual()" title="Agregar picto" aria-label="Agregar picto">Agregar picto</button>
+      <details class="selector-color-texto">
+        <summary onmousedown="event.preventDefault()">Cambiar color</summary>
+        <div class="menu-color-texto">
+          <button class="boton-color-texto boton-color-negro" onmousedown="event.preventDefault()" onclick="colorearSeleccion('#000000'); this.closest('details').removeAttribute('open');">Negro</button>
+          <button class="boton-color-texto boton-color-rojo" onmousedown="event.preventDefault()" onclick="colorearSeleccion('#ff0000'); this.closest('details').removeAttribute('open');">Rojo</button>
+          <button class="boton-color-texto boton-color-azul" onmousedown="event.preventDefault()" onclick="colorearSeleccion('#0000ff'); this.closest('details').removeAttribute('open');">Azul</button>
+        </div>
+      </details>
+      <details class="selector-simbolo-manual">
+        <summary onmousedown="event.preventDefault()">Agregar símbolo</summary>
+        <div class="menu-simbolo-manual">
+          <button onmousedown="event.preventDefault()" onclick="agregarSimboloSeleccion('verbo'); this.closest('details').removeAttribute('open');">Verbo</button>
+          <button onmousedown="event.preventDefault()" onclick="agregarSimboloSeleccion('adjetivo'); this.closest('details').removeAttribute('open');">Adjetivo</button>
+          <button onmousedown="event.preventDefault()" onclick="agregarSimboloSeleccion('infinitivo'); this.closest('details').removeAttribute('open');">Verbo infinitivo</button>
+          <button onmousedown="event.preventDefault()" onclick="agregarSimboloSeleccion('reflexivo'); this.closest('details').removeAttribute('open');">Pronombre reflexivo</button>
+          <button onmousedown="event.preventDefault()" onclick="agregarSimboloSeleccion('pronombre'); this.closest('details').removeAttribute('open');">Pronombre</button>
+          <button onmousedown="event.preventDefault()" onclick="agregarSimboloSeleccion('borrar'); this.closest('details').removeAttribute('open');">Borrar símbolo</button>
+        </div>
+      </details>
+    </div>
+
+    <!-- FILA 4: VISUALIZACIÓN (SIN CAMBIOS) -->
+    <div class="acciones-toggles">
+      <button id="btnSimbolos" class="boton-on" onclick="toggleSimbolos()">Símbolos ON</button>
+      <button id="btnPictos" class="boton-on" onclick="togglePictos()">Pictogramas ON</button>
+      <button id="btnColor" class="boton-on" onclick="toggleColor()">Color ON</button>
+    </div>
+
+    <!-- FILA 5: EXPORTAR -->
+    <div class="acciones-exportar">
+      <button onclick="descargarImagen()">Descargar imagen</button>
+      <button onclick="copiarImagen()">Copiar imagen</button>
+    </div>
+
+  </div>
+
+  <!-- V5.13 — BUSCADOR MANUAL DE PICTOGRAMAS ARASAAC -->
+  <div id="modalPictoManual" class="modal-picto-manual no-descargar" hidden>
+    <div class="modal-picto-manual-caja" role="dialog" aria-modal="true" aria-labelledby="tituloPictoManual">
+      <button type="button" class="cerrar-picto-manual" onclick="cerrarBuscadorPictoManual()" aria-label="Cerrar">×</button>
+      <h2 id="tituloPictoManual">Agregar picto</h2>
+      <div class="busqueda-picto-manual">
+        <input id="inputPictoManual" type="text" placeholder="Buscar pictograma..." autocomplete="off">
+        <button type="button" onclick="buscarPictoManual()">Buscar</button>
+      </div>
+      <div class="carga-imagen-picto-manual"><button type="button" onclick="document.getElementById('archivoImagenPictoManual').click()">Subir imagen propia</button><input id="archivoImagenPictoManual" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden onchange="cargarImagenPictoManual(event)"></div>
+      <div id="estadoPictoManual" class="estado-picto-manual"></div>
+      <div id="resultadosPictoManual" class="resultados-picto-manual"></div>
+    </div>
+  </div>
+
+  <!-- Área donde se muestran los resultados -->
+  <div id="resultado"></div>
+
+  <!-- Footer -->
+  <footer class="firma">Hecho con amor por Iara Lupi ❤</footer>
+
+</body>
+</html>    <script src="js/arasaac.js?v=5.6"></script>
+
