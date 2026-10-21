@@ -1,0 +1,66 @@
+*{box-sizing:border-box}.ge-student-body{margin:0;background:#fff9f6;color:#2b2830;font-family:Nunito,Arial,sans-serif}.ge-student-header{display:flex;align-items:center;gap:20px;padding:10px 24px;background:#fff;border-bottom:2px solid #ffd7c4}.ge-student-header img{max-width:160px;max-height:75px;object-fit:contain}.ge-student-header span{font-size:12px;font-weight:bold;color:#ab6677}#ge-app{max-width:1000px;margin:22px auto;padding:0 14px 40px}.ge-entry{margin:70px auto;background:white;max-width:550px;text-align:center;padding:32px;border:2px solid #ffcab9;border-radius:20px}.ge-entry input{display:block;width:100%;padding:14px;font-size:20px;text-transform:uppercase;margin:20px 0;border:1px solid #d7b4b9;border-radius:10px}button{cursor:pointer}.ge-entry button,.ge-actions button{padding:13px 20px;background:#e887a1;border:0;border-radius:12px;color:#fff;font-size:16px;font-weight:800;margin:5px}.ge-paper{background:#fff;padding:22px;border:1px solid #ddd;border-radius:8px;box-shadow:0 2px 8px #00000010}.ge-student-name{padding:10px;border-bottom:1px solid #ddd;margin-bottom:16px;font-size:17px;font-weight:800}.ge-line{margin:12px 0}.ge-line .contenedor-linea{width:100%}.ge-exercise{border:2px solid #f5d3d9;border-radius:14px;margin:12px 0;padding:12px;background:#fff}.ge-exercise h3{font-size:13px;margin:0 0 8px;color:#7d6370}.ge-bank,.ge-placed{display:flex;flex-wrap:wrap;gap:9px;min-height:42px;align-items:flex-start;align-content:flex-start}.ge-placed{border:2px dashed #dcb4c0;border-radius:10px;padding:10px;margin-bottom:9px;min-height:162px}.ge-bank{padding:6px 0;min-height:150px}.ge-tile{width:120px;height:142px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:8px;background:#fff;border:1px solid #e1c5ce;border-radius:10px;box-shadow:0 2px 4px #0000000d;overflow:hidden}.ge-tile:focus-visible{outline:3px solid #e88da4}.ge-token-picto{height:82px;width:100%;display:flex;align-items:center;justify-content:center}.ge-token-picto img{max-width:78px;max-height:78px;object-fit:contain}.ge-token-word{font-size:16px;overflow-wrap:anywhere;text-align:center}.ge-token-symbol{font-size:14px;color:#db1424}.ge-feedback{font-weight:800;margin-top:8px}.ge-feedback.good{color:#16834d}.ge-feedback.bad{color:#bb3d49}.ge-actions{text-align:center;padding:24px 0}.ge-actions p{color:#655b63}.ge-actions button:disabled{opacity:.5;cursor:not-allowed}.ge-actions .ge-secondary{background:#a57994}.ge-error{padding:30px;background:white;border:1px solid #d66;border-radius:10px}.ge-export .ge-bank{display:none}.ge-export .ge-placed{min-height:0}.ge-export .ge-tile{width:104px;height:128px}.ge-export .ge-exercise{break-inside:avoid}.ge-export .ge-exercise h3{display:none}@media(max-width:520px){.ge-student-header{padding:8px;gap:8px}.ge-student-header img{max-width:125px}.ge-student-header span{font-size:10px}.ge-paper{padding:10px}.ge-tile{width:98px;height:128px}.ge-token-picto{height:72px}.ge-token-picto img{max-height:68px;max-width:68px}.ge-token-word{font-size:14px}}
+
+/* V1.2: fuente original de interfaz y Dreaming en las palabras de la actividad. */
+.ge-student-body,.ge-student-body button:not(.ge-tile),.ge-student-body input,.ge-student-body h1,.ge-student-body h3{font-family:Arial,sans-serif}
+.ge-tile .ge-token-word,.ge-paper .fila-texto{font-family:'Dreaming Outloud Pro',cursive}
+.ge-tile .ge-token-word{font-size:23px}
+
+.ge-student-body .ge-tile .ge-token-word{font-family:'Dreaming Outloud Pro',cursive!important}
+
+/* V1.3: no cortar palabras y evitar selecciones heredadas del editor */
+.ge-student-body .ge-tile .ge-token-word{white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important;max-width:100%;font-size:clamp(12px,2.1vw,23px);line-height:1.1;}
+.ge-student-body .ge-tile .ge-token-face{min-width:0;width:100%;}
+.ge-student-body .ge-tile{outline:none!important;}
+.ge-student-body .ge-tile:focus:not(:focus-visible){outline:none!important;box-shadow:0 2px 4px #0000000d!important;}
+.ge-student-body .ge-tile .seleccion-multiple-activa,.ge-student-body .ge-tile .selected{outline:0!important;background:transparent!important;}
+.ge-student-body .ge-token-symbol,.ge-student-body .ge-symbol-row{flex:none;}
+.ge-student-body .ge-symbol-row{height:26px;min-height:26px;position:relative;}
+.ge-student-body .ge-symbol-row .simbolo-manual{top:50%;}
+.ge-student-body .ge-symbol-row .simbolo-manual-verbo{font-size:23px;}
+.ge-student-body .ge-symbol-row .simbolo-manual img{max-height:24px;max-width:34px;}
+.ge-student-body .ge-export .ge-tile .ge-token-word{font-size:23px;}
+.ge-student-body .ge-actions button[hidden]{display:none!important;}
+
+/* V1.9: recorrido de ejemplo, separado de las actividades reales. */
+.ge-demo-guide{position:fixed;inset:0;z-index:9999;pointer-events:none;background:rgba(47,33,28,.17)}
+.ge-demo-card{position:fixed;top:16px;right:16px;max-width:min(370px,calc(100vw - 32px));padding:17px;background:#fff;border:1px solid #F4D9CA;border-radius:19px;box-shadow:0 12px 36px rgba(85,44,34,.22);font-family:Nunito,Arial,sans-serif;color:#55443F;pointer-events:auto}
+.ge-demo-card small{font-weight:800;color:#E87537}.ge-demo-card h2{font-size:19px;margin:8px 0}.ge-demo-card p{font-size:14px;line-height:1.5}.ge-demo-nav{display:flex;gap:7px;justify-content:flex-end;flex-wrap:wrap}.ge-demo-nav button{border:1px solid #F1D9CF;background:#fff;color:#965B62;border-radius:99px;padding:8px 11px;cursor:pointer}.ge-demo-nav button:last-child{background:#E87537;color:#fff}.ge-demo-highlight{position:relative!important;z-index:10000!important;outline:4px solid #E87537!important;outline-offset:5px!important;box-shadow:0 0 0 9px #fff!important;pointer-events:none!important}
+
+/* V1.14: aprovechar el ancho de la pantalla de resolución sin alterar fichas.
+   Ocho fichas de 120px + separaciones requieren más de 1000px. */
+.ge-student-body #ge-app{width:calc(100% - 24px);max-width:1440px;padding:0 8px 40px;}
+@media(max-width:520px){.ge-student-body #ge-app{width:100%;padding:0 10px 30px;}}
+
+/* Experimental mini-renglones: no alterar las fichas existentes. */
+/* Mini renglón: el texto de guiones permanece en la fila de texto normal. */
+.ge-mini-interactive{display:inline-block;position:relative;white-space:pre;cursor:pointer;font:inherit;}
+.ge-mini-interactive.ge-mini-active{outline:2px solid #e87537;outline-offset:2px;border-radius:3px;}
+.ge-mini-interactive .ge-mini-answer{position:absolute;left:50%;bottom:55%;transform:translateX(-50%);font:inherit;white-space:nowrap;background:white;padding:0 3px;line-height:1;z-index:2;}
+.ge-mini-interactive .ge-mini-answer:focus-visible{outline:2px solid #e87537;}
+.ge-mini-common{border:2px solid #f5d3d9;border-radius:14px;margin:18px 0;padding:12px;}
+.ge-mini-common h3{font-size:13px;color:#7d6370;margin:0 0 10px;}
+.ge-export .ge-mini-common{display:none;}
+.ge-export .ge-mini-interactive{outline:none;}
+
+/* V1.16.3: ficha completa sobre el mini renglón, sin cambiar sus dimensiones. */
+.ge-mini-interactive .ge-mini-answer{position:absolute;left:50%;bottom:0;transform:translateX(-50%);display:block;background:transparent;padding:0;line-height:normal;white-space:normal;z-index:2;}
+.ge-mini-interactive .ge-mini-answer .ge-tile{pointer-events:auto;}
+
+/* V1.16.4: pista visual únicamente en Canva Estudiantes. */
+.ge-student-body .ge-mini-interactive:not(.ge-mini-filled):not(.ge-mini-active){
+  border-radius:4px;
+  animation:ge-mini-hint 2.8s ease-in-out infinite;
+}
+@keyframes ge-mini-hint{
+  0%,100%{background-color:rgba(232,117,55,.03);box-shadow:0 0 0 2px rgba(232,117,55,.12)}
+  50%{background-color:rgba(232,117,55,.18);box-shadow:0 0 0 3px rgba(232,117,55,.28)}
+}
+.ge-student-body .ge-mini-interactive.ge-mini-active:not(.ge-mini-filled){
+  animation:none;background-color:rgba(232,117,55,.13);
+}
+/* Ocultar solamente los caracteres de guion cuando la ficha ocupa el espacio.
+   La ficha conserva sus propios colores y su diseño original. */
+.ge-student-body .ge-mini-interactive.ge-mini-filled{color:transparent!important;animation:none;box-shadow:none;}
+.ge-student-body .ge-mini-interactive.ge-mini-filled .ge-mini-answer{color:#2b2830;}
+.ge-student-body .ge-export .ge-mini-interactive{animation:none!important;box-shadow:none!important;background:transparent!important;}
+@media(prefers-reduced-motion:reduce){.ge-student-body .ge-mini-interactive{animation:none!important;background-color:rgba(232,117,55,.09);}}
