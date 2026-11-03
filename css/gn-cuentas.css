@@ -1,0 +1,37 @@
+/* GramaNick 3.0 experimental: interfaz aislada del editor existente */
+.gn-cuenta-zona{position:absolute;top:15px;left:18px;z-index:60;max-width:240px;text-align:left;font-family:Arial,sans-serif;font-size:14px}
+.gn-cuenta-boton{background:#fff;border:2px solid #8c63b8;border-radius:13px;padding:10px 14px;color:#6e4298;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 2px 6px #0001}
+.gn-docente-nombre{font-size:15px;font-weight:700;color:#653d8b;margin-bottom:6px;overflow-wrap:anywhere}
+.gn-salir{display:block;margin-top:5px;border:0;background:transparent;color:#6e4298;text-decoration:underline;cursor:pointer;font-size:12px}
+.gn-cuenta-fondo[hidden],.gn-cuenta-zona [hidden]{display:none!important}
+.gn-cuenta-fondo{position:fixed;inset:0;background:#17101b9c;z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;font-family:Arial,sans-serif}
+.gn-cuenta-dialogo{position:relative;background:#fff;border-radius:18px;padding:25px;max-width:420px;width:100%;box-sizing:border-box;box-shadow:0 12px 45px #0004;text-align:left;color:#282032;font-size:15px;max-height:90vh;overflow:auto}
+.gn-cuenta-dialogo h2{font-size:22px;margin:0 35px 12px 0;color:#6e4298}
+.gn-cuenta-descripcion{font-size:14px;line-height:1.45}
+.gn-cuenta-dialogo label{display:block;margin:12px 0;font-weight:700;font-size:14px}
+.gn-cuenta-dialogo input{display:block;width:100%;box-sizing:border-box;border:1px solid #b8adbf;border-radius:8px;padding:11px;font-size:16px;margin-top:5px}
+.gn-cuenta-accion{width:100%;padding:12px;background:#7850a1;color:white;border:0;border-radius:10px;font-weight:800;cursor:pointer}
+.gn-cuenta-enlace{display:block;border:0;background:none;color:#6e4298;text-decoration:underline;cursor:pointer;font-size:13px;margin:13px auto 0}
+.gn-cuenta-estado{font-size:14px;line-height:1.5;min-height:18px;overflow-wrap:anywhere}
+.gn-cuenta-cerrar{position:absolute;right:15px;top:9px;font-size:28px;background:none;border:0;cursor:pointer;color:#555}
+@media(max-width:700px){.gn-cuenta-zona{top:6px;left:6px;max-width:140px}.gn-cuenta-boton{font-size:11px;padding:7px}.gn-docente-nombre{font-size:12px}}
+
+/* EXP 3.0 - Ajuste 2: simetría exacta con TUTORIAL y menú desplegable */
+.gn-cuenta-zona{top:12px;left:20px;max-width:min(290px,calc(100vw - 40px));z-index:100}
+.gn-cuenta-zona .gn-cuenta-boton{border:1px solid #E6A56C!important;border-radius:999px!important;background:#FFF0DB!important;color:#A95425!important;font:700 13px 'Nunito',Arial,sans-serif!important;padding:9px 16px!important;box-shadow:none!important;cursor:pointer;animation:none!important;max-width:100%;overflow-wrap:anywhere;text-align:center}
+.gn-cuenta-zona .gn-cuenta-boton::before{content:'👤'!important;font-size:16px;margin-right:7px}
+.gn-cuenta-zona .gn-cuenta-boton:hover,.gn-cuenta-zona .gn-cuenta-boton:focus-visible{background:#FFE3BF!important}
+.gn-docente-nombre{margin:0;display:block}
+.gn-menu-docente[hidden]{display:none!important}
+.gn-menu-docente{position:absolute;top:calc(100% + 7px);left:0;min-width:190px;background:white;border:1px solid #E6A56C;border-radius:13px;padding:6px;box-shadow:0 8px 22px #0002;z-index:110}
+.gn-menu-opcion{display:block;width:100%;border:0;background:transparent;color:#A95425;font:700 13px 'Nunito',Arial,sans-serif;padding:11px 12px;text-align:left;border-radius:8px;cursor:pointer}
+.gn-menu-opcion:hover,.gn-menu-opcion:focus-visible{background:#FFF0DB}
+@media(max-width:700px){.gn-cuenta-zona{top:12px;left:10px;max-width:45vw}.gn-cuenta-zona .gn-cuenta-boton{font-size:11px!important;padding:9px 10px!important}.gn-menu-docente{min-width:155px}}
+
+/* Biblioteca experimental en pantalla completa */
+.gn-pantalla-biblioteca[hidden],#gnModalGuardar[hidden]{display:none!important}
+.gn-pantalla-biblioteca{position:fixed;inset:0;z-index:5000;overflow:auto;background:#fffaf3;padding:30px clamp(14px,4vw,55px);font-family:'Nunito',Arial,sans-serif;color:#453228;box-sizing:border-box}
+.gn-biblio-cabecera{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}.gn-biblio-cabecera h2{margin:0;font-size:28px}
+.gn-biblio-cabecera button,.gn-biblio-pestanas button,.gn-biblio-tarjeta button{border:1px solid #e6a56c;border-radius:12px;padding:10px 14px;background:#fff0db;color:#a95425;font-weight:800;cursor:pointer}
+.gn-biblio-pestanas{display:flex;gap:10px;margin:25px 0;flex-wrap:wrap}.gn-biblio-pestanas .gn-activa{background:#a95425;color:white}
+.gn-biblio-listado{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}.gn-biblio-tarjeta{background:white;border:1px solid #efd6b8;border-radius:16px;padding:18px;box-shadow:0 3px 12px #0001}.gn-biblio-tarjeta h3{margin:0 0 10px;overflow-wrap:anywhere}.gn-biblio-tarjeta p{font-size:13px;color:#6b5a50}.gn-biblio-acciones{display:flex;flex-wrap:wrap;gap:7px}.gn-biblio-acciones button{font-size:12px}

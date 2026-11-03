@@ -12,7 +12,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 
 <!-- CSS -->
-<link rel="stylesheet" href="css/estilos.css?v=1.8">  
+<link rel="stylesheet" href="css/estilos.css?v=1.8">
+<link rel="stylesheet" href="css/gn-cuentas.css?v=exp2">  
 
 <!-- HTML2CANVAS -->
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -41,6 +42,44 @@
 <link rel="stylesheet" href="css/tutorial-unificado.css?v=151110"><link rel="stylesheet" href="css/tutorial-indice.css?v=151111"></head>
 
 <body>
+<!-- EXPERIMENTAL 3.0: acceso docente opcional; GramaNick sigue libre sin sesión -->
+<div id="gnCuentaZona" class="gn-cuenta-zona no-descargar">
+  <button type="button" id="gnBotonAcceso" class="gn-cuenta-boton btn-tutorial">INICIAR SESIÓN</button>
+  <div id="gnDocenteIdentidad" hidden>
+    <button type="button" id="gnDocenteNombre" class="gn-cuenta-boton btn-tutorial gn-docente-nombre" aria-expanded="false" aria-controls="gnMenuDocente"></button>
+    <div id="gnMenuDocente" class="gn-menu-docente" hidden>
+      <button type="button" id="gnBotonBiblioteca" class="gn-menu-opcion">BIBLIOTECA</button>
+      <button type="button" id="gnBotonSalir" class="gn-menu-opcion">CERRAR SESIÓN</button>
+    </div>
+  </div>
+</div>
+<div id="gnModalCuenta" class="gn-cuenta-fondo no-descargar" hidden>
+  <section class="gn-cuenta-dialogo" role="dialog" aria-modal="true" aria-labelledby="gnTituloCuenta">
+    <button type="button" id="gnCerrarCuenta" class="gn-cuenta-cerrar" aria-label="Cerrar">×</button>
+    <h2 id="gnTituloCuenta">INICIAR SESIÓN</h2>
+    <p class="gn-cuenta-descripcion">La cuenta es opcional. Podés seguir creando sin iniciar sesión.</p>
+    <form id="gnFormularioCuenta">
+      <label id="gnCampoNombre" hidden>Nombre docente<input id="gnNombreRegistro" type="text" autocomplete="name" maxlength="80"></label>
+      <label>Correo electrónico<input id="gnEmail" type="email" autocomplete="email" required></label>
+      <label>Contraseña<input id="gnPassword" type="password" autocomplete="current-password" minlength="6" required></label>
+      <button type="submit" id="gnEnviarCuenta" class="gn-cuenta-accion">INGRESAR</button>
+    </form>
+    <button type="button" id="gnAlternarRegistro" class="gn-cuenta-enlace">¿No tenés cuenta? CREAR CUENTA</button>
+    <button type="button" id="gnRecuperar" class="gn-cuenta-enlace">Olvidé mi contraseña</button>
+    <p id="gnEstadoCuenta" class="gn-cuenta-estado" role="status" aria-live="polite"></p>
+  </section>
+</div>
+<section id="gnPantallaBiblioteca" class="gn-pantalla-biblioteca no-descargar" hidden aria-label="Biblioteca de actividades">
+  <div class="gn-biblio-cabecera"><h2>📚 BIBLIOTECA</h2><button type="button" id="gnCerrarBiblioteca">← VOLVER AL EDITOR</button></div>
+  <div class="gn-biblio-pestanas"><button type="button" id="gnTabMias" class="gn-activa">MI BIBLIOTECA</button><button type="button" id="gnTabGeneral">BIBLIOTECA GENERAL</button></div>
+  <div id="gnBiblioSubtabs" class="gn-biblio-pestanas"><button type="button" id="gnSubActividades" class="gn-activa">MIS ACTIVIDADES</button><button type="button" id="gnSubEnlaces">MIS ENLACES</button></div>
+  <p id="gnBiblioEstado" role="status" aria-live="polite"></p>
+  <div id="gnBiblioListado" class="gn-biblio-listado"></div>
+</section>
+<div id="gnModalGuardar" class="gn-cuenta-fondo no-descargar" hidden><section class="gn-cuenta-dialogo" role="dialog" aria-modal="true" aria-labelledby="gnTituloGuardar">
+<button type="button" id="gnCerrarGuardar" class="gn-cuenta-cerrar" aria-label="Cerrar">×</button><h2 id="gnTituloGuardar">GUARDAR EN BIBLIOTECA</h2>
+<p class="gn-cuenta-descripcion">Primera prueba: se guarda el texto original para poder recrear la actividad. Los ajustes manuales de fichas y fotos todavía no se restauran.</p>
+<form id="gnFormGuardar"><label>Título de la actividad<input id="gnTituloActividad" required maxlength="150"></label><button class="gn-cuenta-accion" type="submit">GUARDAR</button></form><p id="gnGuardarEstado" role="status"></p></section></div>
 
   <div class="tutorial-acceso"><button type="button" id="btnTutorial" class="btn-tutorial">TUTORIAL</button></div>
 
@@ -177,6 +216,7 @@
     <div class="acciones-exportar">
       <button onclick="copiarImagen()">COPIAR ACTIVIDAD</button>
       <button onclick="descargarImagen()">DESCARGAR ACTIVIDAD</button>
+      <button type="button" id="gnGuardarActividad" hidden>GUARDAR EN BIBLIOTECA</button>
     </div>
 </div>
       </div>
@@ -222,6 +262,10 @@
 <script src="js/estudiantes-profesor.js?v=1.1"></script>
 <script src="js/tabla-editor-visual.js?v=2"></script>
 <script src="js/tabla-ajuste-texto-pantalla.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="js/gn-cuentas.js?v=exp3"></script>
+<script src="js/gn-biblioteca.js?v=exp2"></script>
+<script src="js/gn-enlaces-docente.js?v=exp1"></script>
 </body>
 </html>    <script src="js/arasaac.js?v=5.6"></script>
 
