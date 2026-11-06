@@ -2013,6 +2013,16 @@ function agregarSimboloAPalabra(palabra, tipo) {
         simbolo.appendChild(img);
     }
 
+    // AUDITORÍA 01: el Canva Docente reutiliza esta función para RELACIONANTES.
+    // Reutilizamos el mismo recurso gráfico que el editor original (Y, PORQUE).
+    if (tipo === "relacionante") {
+        simbolo.classList.add("simbolo-manual-adjetivo");
+        const img = document.createElement("img");
+        img.src = simboloRelacionante;
+        img.alt = "Símbolo de relacionante";
+        simbolo.appendChild(img);
+    }
+
     filaSimbolo.appendChild(simbolo);
 }
 

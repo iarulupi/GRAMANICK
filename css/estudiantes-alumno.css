@@ -231,3 +231,11 @@
 .ge-student-body .ge-paper.ge-export .gn-result-table .ge-mini-free-row>.ge-mini-palabra .fila-texto{display:flex!important;width:100%!important;min-width:0!important}
 .ge-student-body .ge-paper.ge-export .gn-result-table .ge-mini-free-row .ge-mini-free-slot{display:flex!important;flex:1 1 auto!important;width:100%!important;min-width:0!important;max-width:100%!important;margin:2px 0!important;overflow:hidden!important}
 .ge-student-body .ge-paper.ge-export .gn-result-table .ge-mini-free-export-text{display:block!important;flex:1 1 auto!important;width:100%!important;min-width:0!important;max-width:100%!important;padding:7px 2px!important;white-space:nowrap!important;overflow:hidden!important;overflow-wrap:normal!important;word-break:normal!important;text-align:center!important;box-sizing:border-box!important}
+
+/* Experimental 05 corrección: mostrar TODOS los integrantes de una ficha agrupada. */
+.ge-student-body .ge-tile:has(> .ge-group-face){width:max-content!important;max-width:100%!important;min-width:0;height:auto;min-height:142px;overflow:visible;justify-content:flex-end}
+.ge-student-body .ge-tile>.ge-group-face{display:flex!important;flex-wrap:nowrap;align-items:flex-end;gap:8px;width:max-content;max-width:100%}
+.ge-student-body .ge-tile .ge-group-member{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:70px;max-width:110px;flex:none}
+.ge-student-body .ge-tile .ge-group-member>.ge-token-face{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;min-width:0}
+.ge-student-body .ge-tile .ge-group-member .ge-token-word{white-space:nowrap!important;font-size:clamp(14px,2vw,23px)}
+.ge-student-body .ge-export .ge-tile:has(> .ge-group-face){width:max-content!important;height:auto!important;max-width:100%!important}

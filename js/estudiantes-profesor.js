@@ -17,7 +17,63 @@ function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':
 function cleanClone(el){let clone=el.cloneNode(true);clone.querySelectorAll('.seleccion-multiple-activa,.seleccionada,.seleccionado,.activo,.selected,.ge-image-selected-teacher').forEach(n=>n.classList.remove('seleccion-multiple-activa','seleccionada','seleccionado','activo','selected','ge-image-selected-teacher'));clone.querySelectorAll('button, input, select, textarea, .no-descargar, .controles-foto, .control-picto').forEach(n=>n.remove());clone.querySelectorAll('*').forEach(n=>{[...n.attributes].forEach(a=>{if(a.name.startsWith('on')||a.name==='contenteditable')n.removeAttribute(a.name)});});return clone;}
 function collect(){const lines=[...$('#resultado').children];return lines.map((el,i)=>({index:i,html:cleanClone(el).outerHTML,isBlank:!!el.querySelector('.renglon-escritura'),miniCount:el.querySelectorAll('.ge-mini-slot').length,imageCount:el.querySelectorAll('.ge-image-slot').length}));}
 function openPanel(){const lines=collect();if(!lines.length){alert('Primero creá una actividad con el botón CREAR.');return;}panel.hidden=false;panel.innerHTML='';panel.append(make('h2','CREAR ACTIVIDAD INTERACTIVA'),make('p','Seleccioná los renglones donde querés que tus estudiantes respondan. Escribí la oración correcta en cada uno. Esas palabras se mezclarán para que puedan ordenarlas al realizar la actividad. Los espacios ___ también aceptan una palabra cada uno pero comparten un banco común. Podés editar los apoyos visuales de cada ficha antes de generar la actividad.'));
-const forms=[];const miniForms=[];const imageForms=[];const uploadedImages=[];lines.filter(l=>l.isBlank).forEach((l,k)=>{const section=make('div',undefined,'ge-teacher-line');const check=document.createElement('input');check.type='checkbox';check.checked=true;const label=make('label',` Renglón ${k+1}`);label.prepend(check);const heading=make('div',undefined,'ge-answer-heading');const input=document.createElement('input');input.placeholder='Oración correcta, por ejemplo: EL NENE ESTÁ PINTANDO';input.className='ge-answer';const preview=make('div',undefined,'ge-preview');const modeLabel=make('label',undefined,'ge-mode-label');const modeText=make('span','RESPUESTA CORRECTA');const modeStatus=make('span','ON','ge-mode-status');const modeToggle=document.createElement('input');modeToggle.type='checkbox';modeToggle.checked=true;modeToggle.setAttribute('role','switch');modeToggle.setAttribute('aria-label','Respuesta correcta automática ON u OFF');modeLabel.append(modeText,modeToggle,modeStatus);modeToggle.addEventListener('change',()=>{modeStatus.textContent=modeToggle.checked?'ON':'OFF';if(!modeToggle.checked){input.value='';preview.replaceChildren();}input.hidden=!modeToggle.checked;preview.hidden=!modeToggle.checked;const box=panel.querySelector('#ge-links');if(box)box.hidden=true;});input.addEventListener('input',()=>{drawTokens(input.value,preview);const box=panel.querySelector('#ge-links');if(box)box.hidden=true;});check.addEventListener('change',()=>{input.disabled=!check.checked;preview.hidden=!check.checked;});heading.append(label,modeLabel);section.append(heading,input,preview);panel.append(section);forms.push({line:l.index,check,input,preview,modeToggle});});
+const forms=[];const miniForms=[];const imageForms=[];const uploadedImages=[];lines.filter(l=>l.isBlank).forEach((l,k)=>{const section=make('div',undefined,'ge-teacher-line');const check=document.createElement('input');check.type='checkbox';check.checked=true;const label=make('label',` Renglón ${k+1}`);label.prepend(check);const heading=make('div',undefined,'ge-answer-heading');const input=document.createElement('input');input.placeholder='Oración correcta, por ejemplo: EL NENE ESTÁ PINTANDO';input.className='ge-answer';const preview=make('div',undefined,'ge-preview');
+// Los apoyos de ESCRITURA LIBRE son una decisión exclusiva del docente.
+const freeSupports=make('div',undefined,'gn-free-supports');
+const supportInputs={};
+[['pictograma','PICTOGRAMA'],['color','COLOR'],['simbolos','SÍMBOLOS']].forEach(([key,title])=>{
+ const label=make('label',undefined,'ge-mode-label gn-free-support-option');
+ const checkbox=make('input');checkbox.type='checkbox';checkbox.checked=true;checkbox.setAttribute('role','switch');
+ const caption=make('span',title);const status=make('span','ON','ge-mode-status gn-free-support-status');
+ checkbox.addEventListener('change',()=>{status.textContent=checkbox.checked?'ON':'OFF';const box=panel.querySelector('#ge-links');if(box)box.hidden=true;});
+ label.append(caption,checkbox,status);freeSupports.append(label);supportInputs[key]=checkbox;
+});
+const modeLabel=make('label',undefined,'ge-mode-label');const modeText=make('span','RESPUESTA CORRECTA');const modeStatus=make('span','ON','ge-mode-status');const modeToggle=document.createElement('input');modeToggle.type='checkbox';modeToggle.checked=true;modeToggle.setAttribute('role','switch');modeToggle.setAttribute('aria-label','Respuesta correcta automática ON u OFF');modeLabel.append(modeText,modeToggle,modeStatus);modeToggle.addEventListener('change',()=>{modeStatus.textContent=modeToggle.checked?'ON':'OFF';if(!modeToggle.checked){input.value='';preview.replaceChildren();}input.hidden=!modeToggle.checked;preview.hidden=!modeToggle.checked;freeSupports.hidden=modeToggle.checked;const box=panel.querySelector('#ge-links');if(box)box.hidden=true;});input.addEventListener('input',()=>{drawTokens(input.value,preview);const box=panel.querySelector('#ge-links');if(box)box.hidden=true;});check.addEventListener('change',()=>{input.disabled=!check.checked;preview.hidden=!check.checked;});heading.append(label,modeLabel);freeSupports.hidden=true;
+// Agrupar fichas por selección explícita, sin alterar la representación de cada palabra.
+const groupBar=make('div',undefined,'ge-group-bar');
+const unite=make('button','UNIR FICHAS');unite.type='button';
+const separate=make('button','SEPARAR');separate.type='button';
+let groups=[];
+const tokens=()=>[...preview.querySelectorAll('.ge-edit-token')];
+const refreshGroups=()=>{
+  // Desarmar solamente los contenedores visuales, sin recrear las fichas ni sus ediciones.
+  preview.querySelectorAll('.ge-group-teacher').forEach(wrapper=>wrapper.replaceWith(...wrapper.children));
+  const items=tokens();
+  items.forEach(el=>el.classList.toggle('ge-group-selected',!!el.querySelector('.ge-group-check')?.checked));
+  groups.slice().sort((a,b)=>a[0]-b[0]).forEach(indices=>{
+    const members=indices.map(i=>items[i]).filter(Boolean);
+    if(members.length<2)return;
+    const wrapper=make('div',undefined,'ge-group-teacher');
+    wrapper.title='Tocá este grupo para seleccionarlo y después SEPARAR';
+    wrapper.addEventListener('click',event=>{
+      if(event.target.closest('button,select,.menu-pictos,.flecha-picto,.eliminar-picto'))return;
+      if(event.target.closest('.ge-group-select'))return;
+      const allChecked=members.every(el=>el.querySelector('.ge-group-check')?.checked);
+      members.forEach(el=>{const cb=el.querySelector('.ge-group-check');if(cb)cb.checked=!allChecked;});
+      refreshGroups();
+    });
+    members[0].before(wrapper);members.forEach(el=>wrapper.append(el));
+  });
+};
+const resetGroups=()=>{groups=[];refreshGroups();};
+const attachSelectors=()=>{tokens().forEach(el=>{if(el.querySelector('.ge-group-check'))return;const lbl=make('label',undefined,'ge-group-select');const cb=document.createElement('input');cb.type='checkbox';cb.className='ge-group-check';cb.addEventListener('change',refreshGroups);lbl.append(cb,document.createTextNode(' Seleccionar'));el.prepend(lbl);});refreshGroups();};
+unite.onclick=()=>{const items=tokens();const ids=items.map((el,i)=>el.querySelector('.ge-group-check')?.checked?i:-1).filter(i=>i>=0);
+ if(ids.length<2){alert('Seleccioná dos o más fichas para unir.');return;}
+ if(ids.some((v,i)=>i&&v!==ids[i-1]+1)){alert('Para unir, seleccioná fichas consecutivas en el orden de la oración.');return;}
+ groups=groups.filter(g=>!g.some(i=>ids.includes(i)));groups.push(ids);
+ items.forEach(el=>{el.querySelector('.ge-group-check').checked=false});refreshGroups();
+};
+separate.onclick=()=>{const ids=tokens().flatMap((el,i)=>el.querySelector('.ge-group-check')?.checked?[i]:[]);
+ let toSeparate=groups.filter(g=>g.some(i=>ids.includes(i)));
+ // Cuando solo existe un grupo, SEPARAR funciona incluso sin selección previa.
+ if(!toSeparate.length && groups.length===1)toSeparate=[groups[0]];
+ if(!toSeparate.length){alert('Tocá el recuadro del grupo que querés separar y después SEPARAR.');return;}
+ groups=groups.filter(g=>!toSeparate.includes(g));
+ tokens().forEach(el=>{const cb=el.querySelector('.ge-group-check');if(cb)cb.checked=false;});
+ refreshGroups();
+};
+input.addEventListener('input',()=>{resetGroups();queueMicrotask(attachSelectors)});
+groupBar.append(unite,separate);section.append(heading,input,preview,groupBar,freeSupports);panel.append(section);forms.push({line:l.index,check,input,preview,modeToggle,supportInputs,getGroups:()=>groups});});
 // Los espacios se configuran por separado; las fichas se reúnen en un banco único.
 lines.filter(l=>l.miniCount).forEach(l=>{
  for(let i=0;i<l.miniCount;i++){
@@ -78,12 +134,34 @@ if(miniForms.length){
  section.append(distractInput,distractPreview);panel.append(section);
 }
 if(!forms.length&&!miniForms.length&&!imageForms.length){panel.append(make('p','No encontré renglones [[RENGLON]] ni espacios ___ en el resultado.'));}
-const buttons=make('div',undefined,'ge-teacher-actions');const generate=make('button','✨ Generar enlace de la actividad interactiva ✨');generate.className='ge-generate';generate.onclick=async()=>{const chosen=forms.filter(f=>f.check.checked);if((!chosen.length&&!miniForms.length&&!imageForms.length)||chosen.some(f=>f.modeToggle.checked&&!f.input.value.trim())||miniForms.some(f=>f.modeToggle.checked&&(!f.input.value.trim()||f.input.value.trim().split(/\s+/).length!==1))||imageForms.some(f=>f.modeToggle.checked&&!f.select.value)||imageForms.length>0&&!uploadedImages.length){alert('Completá cada mini renglón con una sola palabra y las respuestas de los renglones seleccionados.');return;}const freeAnswers=chosen.filter(f=>!f.modeToggle.checked).map(f=>({line:f.line}));const answers=chosen.filter(f=>f.modeToggle.checked).map(f=>({line:f.line,words:[...f.preview.querySelectorAll('.ge-edit-token')].map(e=>({text:e.dataset.word,html:exportTokenFace(e)}))}));const freeMinis=miniForms.filter(f=>!f.modeToggle.checked).map(f=>({line:f.line,slot:f.slot}));const minis=miniForms.filter(f=>f.modeToggle.checked).map(f=>({line:f.line,slot:f.slot,word:[...f.preview.querySelectorAll('.ge-edit-token')].map(e=>({text:e.dataset.word,html:exportTokenFace(e)}))[0]}));
+const buttons=make('div',undefined,'ge-teacher-actions');const generate=make('button','✨ Generar enlace de la actividad interactiva ✨');generate.className='ge-generate';generate.onclick=async()=>{const chosen=forms.filter(f=>f.check.checked);if((!chosen.length&&!miniForms.length&&!imageForms.length)||chosen.some(f=>f.modeToggle.checked&&!f.input.value.trim())||miniForms.some(f=>f.modeToggle.checked&&(!f.input.value.trim()||f.input.value.trim().split(/\s+/).length!==1))||imageForms.some(f=>f.modeToggle.checked&&!f.select.value)||imageForms.length>0&&!uploadedImages.length){alert('Completá cada mini renglón con una sola palabra y las respuestas de los renglones seleccionados.');return;}const freeAnswers=chosen.filter(f=>!f.modeToggle.checked).map(f=>({line:f.line,supports:Object.fromEntries(Object.entries(f.supportInputs).map(([k,v])=>[k,v.checked]))}));const answers=chosen.filter(f=>f.modeToggle.checked).map(f=>({line:f.line,words:exportGroupedWords(f.preview,f.getGroups())}));const freeMinis=miniForms.filter(f=>!f.modeToggle.checked).map(f=>({line:f.line,slot:f.slot}));const minis=miniForms.filter(f=>f.modeToggle.checked).map(f=>({line:f.line,slot:f.slot,word:[...f.preview.querySelectorAll('.ge-edit-token')].map(e=>({text:e.dataset.word,html:exportTokenFace(e)}))[0]}));
 const distractors=distractPreview?[...distractPreview.querySelectorAll('.ge-edit-token')].map(e=>({text:e.dataset.word,html:exportTokenFace(e)})):[];
 const images=uploadedImages.map(({id,src,name})=>({id,src,name}));
 const imageAnswers=imageForms.map(f=>({line:f.line,slot:f.slot,imageId:f.modeToggle.checked?f.select.value:null,free:!f.modeToggle.checked}));
-const payload={version:1,lines,answers,freeAnswers,minis,freeMinis,distractors,images,imageAnswers};window.gnUltimaInteractiva=payload;const encoded=await encodePayload(payload);const base=new URL('estudiantes.html',location.href).href.split('#')[0];const url=base+'#'+encoded;const output=$('#ge-link');output.value=url;$('#ge-links').hidden=false;$('#ge-link-size').textContent='Tamaño del enlace: '+Math.round(url.length/1024)+' KB. Los enlaces con muchas fotos pueden superar el límite del navegador o de aplicaciones de mensajería.';};const close=make('button','×');close.className='ge-close';close.setAttribute('aria-label','Cerrar actividad interactiva');close.title='Cerrar';close.type='button';close.onclick=()=>panel.hidden=true;buttons.append(generate,close);panel.append(buttons);
-const links=make('div',undefined,'ge-links');links.id='ge-links';links.hidden=true;const out=document.createElement('input');out.id='ge-link';out.type='hidden';links.append(out);const size=make('p');size.id='ge-link-size';size.hidden=true;links.append(size);const copy=make('button','COPIAR ENLACE');copy.className='ge-copy';copy.onclick=async()=>{try{await navigator.clipboard.writeText(out.value);copy.textContent='✓ ENLACE COPIADO';setTimeout(()=>copy.textContent='COPIAR ENLACE',2000)}catch(e){const fallback=document.createElement('textarea');fallback.value=out.value;document.body.append(fallback);fallback.select();document.execCommand('copy');fallback.remove();copy.textContent='✓ ENLACE COPIADO';setTimeout(()=>copy.textContent='COPIAR ENLACE',2000)}};const view=make('button','PROBAR COMO ESTUDIANTE');view.className='ge-view';view.onclick=()=>{try{window.open(out.value,'_blank','noopener')}catch(e){alert('No se pudo abrir la pestaña. Copiá el enlace y abrilo manualmente.')}};const save=make('button','GUARDAR ENLACE');save.className='ge-copy';save.onclick=()=>window.gnGuardarEnlaceInteractivo?.(out);links.append(copy,save,view);panel.append(links);links.hidden=true;panel.scrollIntoView({behavior:'smooth',block:'start'});
+const payload={version:1,lines,answers,freeAnswers,minis,freeMinis,distractors,images,imageAnswers};window.gnUltimaInteractiva=payload;const encoded=await encodePayload(payload);const base=new URL('estudiantes.html',location.href).href.split('#')[0];const url=base+'#'+encoded;const output=$('#ge-link');output.value=url;$('#ge-links').hidden=false;$('#ge-link-size').textContent='Tamaño del enlace: '+Math.round(url.length/1024)+' KB.'+(url.length>6000?' ⚠ Este enlace puede ser bloqueado por su longitud. Para compartirlo, usá GUARDAR ENLACE y obtené el enlace corto de MIS ENLACES. PROBAR COMO ESTUDIANTE usa una vista previa local sin URL larga.':'');$('#ge-link-size').hidden=false;};const close=make('button','×');close.className='ge-close';close.setAttribute('aria-label','Cerrar actividad interactiva');close.title='Cerrar';close.type='button';close.onclick=()=>panel.hidden=true;buttons.append(generate,close);panel.append(buttons);
+const links=make('div',undefined,'ge-links');links.id='ge-links';links.hidden=true;const out=document.createElement('input');out.id='ge-link';out.type='hidden';links.append(out);const size=make('p');size.id='ge-link-size';size.hidden=true;links.append(size);const copy=make('button','COPIAR ENLACE');copy.className='ge-copy';copy.onclick=async()=>{try{await navigator.clipboard.writeText(out.value);copy.textContent='✓ ENLACE COPIADO';setTimeout(()=>copy.textContent='COPIAR ENLACE',2000)}catch(e){const fallback=document.createElement('textarea');fallback.value=out.value;document.body.append(fallback);fallback.select();document.execCommand('copy');fallback.remove();copy.textContent='✓ ENLACE COPIADO';setTimeout(()=>copy.textContent='COPIAR ENLACE',2000)}};const view=make('button','PROBAR COMO ESTUDIANTE');view.className='ge-view';view.onclick=()=>{
+ // La vista previa no debe transportar los SVG y pictogramas dentro de la URL.
+ // Se almacena una copia temporal en este navegador; los enlaces para compartir
+ // siguen siendo los generados o los enlaces cortos de MIS ENLACES.
+ try{
+  const payload=window.gnUltimaInteractiva;
+  if(!payload)throw Error('Generá primero la actividad.');
+  const id='gn-preview-'+Date.now()+'-'+Math.random().toString(36).slice(2);
+  localStorage.setItem(id,JSON.stringify(payload));
+  const base=new URL('estudiantes.html',location.href).href.split('#')[0].split('?')[0];
+  const opened=window.open(base+'#preview.'+encodeURIComponent(id),'_blank');
+  if(!opened)alert('El navegador bloqueó la pestaña nueva. Permití ventanas emergentes para este sitio.');
+ }catch(e){
+  console.warn('Vista previa local no disponible',e);
+  try{window.open(out.value,'_blank')}catch(_){alert('No se pudo abrir la vista previa: '+e.message)}
+ }
+};const save=make('button','GUARDAR ENLACE');save.className='ge-copy';save.onclick=()=>window.gnGuardarEnlaceInteractivo?.(out);links.append(copy,save,view);panel.append(links);links.hidden=true;panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function exportGroupedWords(preview,groups){
+ const items=[...preview.querySelectorAll('.ge-edit-token')];const used=new Set();const output=[];
+ items.forEach((item,i)=>{if(used.has(i))return;const group=groups.find(g=>g[0]===i);if(!group){output.push({text:item.dataset.word,html:exportTokenFace(item)});return;}
+ group.forEach(n=>used.add(n));const members=group.map(n=>items[n]);output.push({text:members.map(e=>e.dataset.word).join(' '),html:'<div class="ge-group-face">'+members.map(e=>'<div class="ge-group-member"><div class="ge-token-face">'+exportTokenFace(e)+'</div></div>').join('')+'</div>',group:true});
+ });return output;
 }
 function exportTokenFace(item){
  const face=item.querySelector('.ge-token-face').cloneNode(true);
@@ -120,9 +198,22 @@ function drawTokens(value,where){
     face.append(picto,symbolRow,text);
     // Misma clasificación que el editor principal, sin heurística paralela.
     const grammatical=interpretacion.tipo;
-    if(['verbo','adjetivo','pronombre','reflexivo','relacionante'].includes(grammatical) &&
+    // Usar el mismo criterio de infinitivo del editor original (funciones.js).
+    // La clasificación general puede devolver "verbo" tanto para COMER como para COME.
+    const exacta=typeof normalizarTextoExacto==='function'?normalizarTextoExacto(clean):clean.toLowerCase();
+    const aliasExacto=alias&&typeof normalizarTextoExacto==='function'?normalizarTextoExacto(alias):'';
+    const esInfinitivo=grammatical==='verbo'&&!interpretacion.ambiguas&&(
+      (typeof verbosBaseExactos!=='undefined'&&verbosBaseExactos.includes(exacta))||
+      (typeof esInfinitivoRegularNoCargado==='function'&&esInfinitivoRegularNoCargado(exacta))||
+      (aliasExacto&&(
+        (typeof verbosBaseExactos!=='undefined'&&verbosBaseExactos.includes(aliasExacto))||
+        (typeof esInfinitivoRegularNoCargado==='function'&&esInfinitivoRegularNoCargado(aliasExacto))
+      ))
+    );
+    const simboloAutomatico=esInfinitivo?'infinitivo':grammatical;
+    if(['verbo','infinitivo','adjetivo','pronombre','reflexivo','relacionante'].includes(simboloAutomatico) &&
        typeof agregarSimboloAPalabra==='function') {
-      agregarSimboloAPalabra(face,grammatical);
+      agregarSimboloAPalabra(face,simboloAutomatico);
     }
     // Reutilizar literalmente el selector y el renderizador de ambigüedades
     // del editor principal, sin un segundo motor ni selección automática fija.
@@ -180,8 +271,8 @@ function drawTokens(value,where){
     ensurePictoRemove();
     const color=make('select');color.setAttribute('aria-label','COLOR');color.title='COLOR';[['auto','COLOR'],['#111111','Negro'],['#ed1c24','Rojo'],['#2563eb','Azul']].forEach(([v,t])=>{const o=make('option',t);o.value=v;color.append(o)});
     color.onchange=()=>{const style=typeof obtenerEstiloPalabraCompuesta==='function'?obtenerEstiloPalabraCompuesta(word,words[index-1]||'',words[index+1]||''):null;text.style.color=color.value==='auto'?(style?.color||'black'):color.value};
-    const symbol=make('select');symbol.setAttribute('aria-label','SÍMBOLOS');symbol.title='SÍMBOLOS';[['auto','SÍMBOLOS'],['borrar','Sin símbolo'],['verbo','Verbo'],['adjetivo','Adjetivo'],['infinitivo','Infinitivo'],['pronombre','Pronombre'],['reflexivo','Reflexivo']].forEach(([v,t])=>{const o=make('option',t);o.value=v;symbol.append(o)});
-    symbol.onchange=()=>{symbolRow.replaceChildren();if(symbol.value==='auto'){if(grammatical&&typeof agregarSimboloAPalabra==='function')agregarSimboloAPalabra(face,grammatical);}else if(typeof agregarSimboloAPalabra==='function')agregarSimboloAPalabra(face,symbol.value);};
+    const symbol=make('select');symbol.setAttribute('aria-label','SÍMBOLOS');symbol.title='SÍMBOLOS';[['auto','SÍMBOLOS'],['borrar','Sin símbolo'],['verbo','Verbo'],['adjetivo','Adjetivo'],['infinitivo','Infinitivo'],['pronombre','Pronombre'],['reflexivo','Reflexivo'],['relacionante','Relacionante']].forEach(([v,t])=>{const o=make('option',t);o.value=v;symbol.append(o)});
+    symbol.onchange=()=>{symbolRow.replaceChildren();if(symbol.value==='auto'){if(simboloAutomatico&&typeof agregarSimboloAPalabra==='function')agregarSimboloAPalabra(face,simboloAutomatico);}else if(typeof agregarSimboloAPalabra==='function')agregarSimboloAPalabra(face,symbol.value);};
     tools.append(buscarBtn,color,symbol);item.append(face,tools);where.append(item);
   });
 }

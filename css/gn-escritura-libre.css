@@ -1,0 +1,47 @@
+/* Escritura libre: texto fluido, no fichas. */
+.gn-free-supports{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}
+.gn-free-support-option{display:inline-flex;align-items:center;gap:8px;font-weight:700}
+.gn-free-support-option input{width:18px;height:18px}
+.gn-free-support-status{font-size:12px}
+.gn-free-visual{padding:12px 0;min-height:24px;white-space:normal;overflow-wrap:anywhere}
+.gn-free-text-line{display:flex;flex-wrap:wrap;align-items:flex-end;gap:6px 10px;min-height:26px;margin-bottom:10px}
+.gn-free-word{display:inline-flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;vertical-align:bottom;border:0!important;background:transparent!important;box-shadow:none!important;min-width:22px}
+.gn-free-label{font-family:Nunito,Arial,sans-serif;font-size:21px;line-height:1.25;white-space:pre}
+.gn-free-picto{display:flex;align-items:center;justify-content:center;min-height:68px;width:82px;max-width:100%;overflow:hidden}
+.gn-free-picto img{width:70px!important;height:65px!important;object-fit:contain!important;max-width:100%}
+.gn-free-picto .flecha-picto,.gn-free-picto .eliminar-picto,.gn-free-picto button,.gn-free-picto .menu-pictos{display:none!important}
+.gn-free-symbol{height:40px;width:70px;display:block;position:relative}
+.gn-free-symbol .simbolo-manual{position:absolute;left:50%!important;transform:translateX(-50%)}
+.gn-free-symbol img{max-height:38px;max-width:70px;object-fit:contain}
+.gn-free-visual:empty{display:none}
+
+/* EXP 02: los tres apoyos utilizan el switch nativo de Canva Docente. */
+.gn-free-support-option input{width:auto;height:auto}
+/* El mismo texto es el área de edición; no hay textarea ni vista duplicada. */
+.gn-free-editor{min-height:125px;outline:none;cursor:text;padding:14px 12px;white-space:normal;overflow-wrap:anywhere;border:1px solid #d4d9e0;border-radius:10px;background:#fff}
+.gn-free-editor:focus{border-color:#657bc8;box-shadow:0 0 0 3px rgba(101,123,200,.13)}
+.gn-free-editor.gn-free-empty::before{content:attr(data-placeholder);color:#8c929b;pointer-events:none;position:absolute}
+.gn-free-editor.gn-free-empty{position:relative}
+.gn-free-editor.gn-free-locked{border-color:transparent;box-shadow:none;cursor:default}
+.gn-free-editor .gn-free-label{user-select:text}
+.gn-free-editor .gn-free-picto,.gn-free-editor .gn-free-symbol{user-select:none;pointer-events:none}
+@media print{.gn-free-editor{border:0!important;box-shadow:none!important;padding:0!important;min-height:0!important}.gn-free-editor.gn-free-empty::before{display:none}}
+
+.gn-free-editor .gn-free-text-line{display:block;min-height:30px;line-height:1.4;margin-bottom:10px;white-space:pre-wrap}
+.gn-free-editor .gn-free-word{display:inline-flex;vertical-align:bottom}
+
+/* Experimental 04: edición discreta de pictogramas; nunca botones llamativos. */
+.gn-free-editor .gn-free-picto{pointer-events:auto;overflow:visible;position:relative}
+.gn-free-editor .gn-free-picto .picto-seleccionable{position:relative;cursor:pointer}
+.gn-free-editor .gn-free-picto .flecha-picto{display:none!important}
+.gn-free-editor .gn-free-picto .eliminar-picto{display:none!important}
+.gn-free-editor .gn-free-picto .menu-pictos{display:none!important}
+.gn-free-editor .gn-free-picto .menu-pictos.menu-pictos-abierto{display:block!important;z-index:9999;pointer-events:auto}
+.gn-free-editor .gn-free-picto .menu-pictos *{pointer-events:auto}
+.gn-free-editor .gn-free-picto .gn-free-remove-picto{display:block!important;position:absolute;right:1px;top:-9px;z-index:3;border:0;background:transparent;color:#a4a8ae;font-size:15px;line-height:1;cursor:pointer;padding:4px;opacity:.42}
+.gn-free-editor .gn-free-picto .gn-free-remove-picto:hover,.gn-free-editor .gn-free-picto .gn-free-remove-picto:focus-visible{opacity:1;color:#666}
+.gn-free-editor .gn-free-restore-picto{display:none!important;border:0;background:transparent;color:#a4a8ae;font-size:12px;cursor:pointer;padding:0 3px;line-height:1}
+.gn-free-editor .gn-free-without-picto .gn-free-restore-picto{display:inline-block!important;opacity:.35}
+.gn-free-editor .gn-free-without-picto .gn-free-restore-picto:hover{opacity:1}
+@media print{.gn-free-remove-picto,.gn-free-restore-picto{display:none!important}}
+.gn-free-locked .gn-free-remove-picto,.gn-free-locked .gn-free-restore-picto{display:none!important}
